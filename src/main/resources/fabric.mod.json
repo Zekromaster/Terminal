@@ -13,7 +13,8 @@
   "environment": "*",
   "entrypoints": {
     "stationapi:event_bus": [
-      "net.zekromaster.minecraft.terminal.capabilities.impl.CapabilitiesListener"
+      "net.zekromaster.minecraft.terminal.capabilities.impl.CapabilitiesListener",
+      "net.zekromaster.minecraft.terminal.storage.impl.CapabilitiesListener"
     ],
     "stationapi:event_bus_client": [],
     "stationapi:event_bus_server": []

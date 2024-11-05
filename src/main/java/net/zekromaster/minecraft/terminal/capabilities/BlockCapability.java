@@ -13,6 +13,12 @@ import net.modificationstation.stationapi.api.util.math.Direction;
 import net.zekromaster.minecraft.terminal.mixin.capabilities.BlockEntityAccessor;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Flexible access to an object of type {@code T} as long as it's attached to a Block or {@link BlockEntity}.
+ *
+ * @param <T> The underlying type
+ * @param <CTX> A context object
+ */
 public final class BlockCapability<T, CTX> {
 
     final Multimap<String, BlockEntityCapabilityHandler<T, CTX>> blockEntityHandlers = ArrayListMultimap.create();
@@ -28,26 +34,54 @@ public final class BlockCapability<T, CTX> {
         this.ctxClass = ctxClass;
     }
 
+    /**
+     * @param identifier A unique identifier
+     * @param clazz The underlying type
+     * @param ctxClass A context type
+     * @return A new block capability with the given parameters
+     * @param <T> The underlying type
+     * @param <CTX> A context type
+     */
     @API
     public static <T, CTX> BlockCapability<T, CTX> create(Identifier identifier, Class<T> clazz, Class<CTX> ctxClass) {
         return new BlockCapability<>(identifier, clazz, ctxClass);
     }
 
+    /**
+     * Same as {@link BlockCapability#create(Identifier, Class, Class)}, but the context object is always a
+     * {@link Direction}
+     */
     @API
     public static <T> BlockCapability<T, @Nullable Direction> createSided(Identifier identifier, Class<T> clazz) {
         return new BlockCapability<>(identifier, clazz, Direction.class);
     }
 
+    /**
+     * Same as {@link BlockCapability#create(Identifier, Class, Class)}, but the context object is always a
+     * {@link Void} and thus is always null
+     */
     @API
     public static <T> BlockCapability<T, Void> createVoid(Identifier identifier, Class<T> clazz) {
         return new BlockCapability<>(identifier, clazz, Void.class);
     }
 
+    /**
+     * Same as {@link BlockCapability#get(World, int, int, int, Object)} but using a BlockPos.
+     */
     @API
     public @Nullable T get(World world, BlockPos blockPos, CTX ctx) {
         return this.get(world, blockPos.x, blockPos.y, blockPos.z, ctx);
     }
 
+    /**
+     *
+     * @param world The world
+     * @param x The x coordinate of the block
+     * @param y The y coordinate of the block
+     * @param z The z coordinate of the block
+     * @param ctx The context object
+     * @return An instance of type {@code T}, or null if no handler provides one
+     */
     @API
     public @Nullable T get(World world, int x, int y, int z, CTX ctx) {
         var blockEntity = world.getBlockEntity(x, y, z);

@@ -35,10 +35,6 @@ java {
     withSourcesJar()
 }
 
-loom {
-    accessWidenerPath = file("src/main/resources/terminal.accesswidener")
-}
-
 group = maven_group
 version = next_version
 
