@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "terminal",
+  "version": "${version}",
+
+  "name": "Terminal",
+  "description": "Series of utilities that (probably) would not end up directly in StAPI.",
+  "authors": ["Zekromaster"],
+  "contact": {
+    "sources": "https://github.com/Zekromaster/Terminal"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "stationapi:event_bus": [
+      "net.zekromaster.minecraft.terminal.capabilities.impl.CapabilitiesListener"
+    ],
+    "stationapi:event_bus_client": [],
+    "stationapi:event_bus_server": []
+  },
+  "mixins": [
+    "mixins.terminal.json"
+  ],
+  "depends": {
+    "minecraft": "1.0.0-beta.7.3",
+    "stationapi": [">=2.0-alpha.2", "<2.0-alpha.3"]
+  },
+  "custom": {
+    "modmenu:api": true
+  }
+}
