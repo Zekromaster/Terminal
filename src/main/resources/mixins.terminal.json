@@ -4,11 +4,18 @@
   "package": "net.zekromaster.minecraft.terminal.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "attachments.BlockEntityMixin",
+    "attachments.EntityMixin",
+    "attachments.ItemStackMixin",
     "capabilities.BlockEntityAccessor",
     "storage.FurnaceBlockEntityAccessor"
   ],
-  "server": [],
-  "client": [],
+  "server": [
+    "attachments.ServerNetworkHandlerMixin"
+  ],
+  "client": [
+    "attachments.ClientNetworkHandlerMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

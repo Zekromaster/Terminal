@@ -15,7 +15,8 @@
     "stationapi:event_bus": [
       "net.zekromaster.minecraft.terminal.entrypoints.EventBusEntrypointListener",
       "net.zekromaster.minecraft.terminal.capabilities.impl.CapabilitiesListener",
-      "net.zekromaster.minecraft.terminal.storage.impl.CapabilitiesListener"
+      "net.zekromaster.minecraft.terminal.storage.impl.CapabilitiesListener",
+      "net.zekromaster.minecraft.terminal.attachments.impl.AttachmentsListener"
     ],
     "stationapi:event_bus_client": [],
     "stationapi:event_bus_server": []
@@ -28,6 +29,20 @@
     "stationapi": [">=2.0-alpha.2", "<2.0-alpha.3"]
   },
   "custom": {
-    "modmenu:api": true
+    "modmenu:api": true,
+    "loom:injected_interfaces": {
+      "net/minecraft/class_31": ["net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsInjectedStore"],
+      "net/minecraft/class_55": [
+        "net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsInjectedStore",
+        "net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsSetDataSilently"
+      ],
+      "net/minecraft/class_57": [
+        "net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsInjectedStore",
+        "net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsSetDataSilently"
+      ],
+      "net/minecraft/class_219": ["net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsNetworkHandler"],
+      "net/minecraft/class_11": ["net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsNetworkHandler"]
+    }
   }
 }
+
