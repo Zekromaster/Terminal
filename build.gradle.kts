@@ -95,29 +95,30 @@ dependencies {
     modImplementation("net.modificationstation:StationAPI:${stapi_version}")
 
     // Optional, but convenient mods for mod creators and users alike.
-    modImplementation("net.glasslauncher.mods:ModMenu:${modmenu_version}") {
-        isTransitive = false
-    }
-    modImplementation("net.glasslauncher.mods:glass-networking:1.0.2") {
-        isTransitive = false
-    }
-    implementation("me.carleslc:Simple-Yaml:1.8.4")
-    modImplementation("net.glasslauncher.mods:GlassConfigAPI:3.0.0") {
-        isTransitive = false
-    }
-    modImplementation("net.glasslauncher.mods:AlwaysMoreItems:${ami_version}") {
+    modRuntimeOnly("net.glasslauncher.mods:ModMenu:${modmenu_version}") {
         isTransitive = false
     }
 
-    modImplementation("com.github.matthewperiut:retrocommands:0.5.2") {
+    modRuntimeOnly("net.glasslauncher.mods:glass-networking:1.0.2") {
         isTransitive = false
     }
 
-    modImplementation ("com.github.paulevsGitch:BHCreative:${bhcreative_version}") {
+    modRuntimeOnly("me.carleslc:Simple-Yaml:1.8.4")
+    modRuntimeOnly("net.glasslauncher.mods:GlassConfigAPI:3.0.0") {
         isTransitive = false
     }
 
-    modImplementation("maven.modrinth:accessory-api:0.7.0")
+    modRuntimeOnly("net.glasslauncher.mods:AlwaysMoreItems:${ami_version}") {
+        isTransitive = false
+    }
+
+    modRuntimeOnly("com.github.matthewperiut:retrocommands:0.5.2") {
+        isTransitive = false
+    }
+
+    modRuntimeOnly ("com.github.paulevsGitch:BHCreative:${bhcreative_version}") {
+        isTransitive = false
+    }
 }
 
 tasks {
