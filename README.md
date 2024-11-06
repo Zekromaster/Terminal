@@ -43,7 +43,7 @@ Assuming the username and token are stored in the `gpr.user` and `gpr.key` prope
 ```kotlin
 repositories {
     maven {
-        url = uri("https://maven.pkg.github.com/Zekromaster/SheepEatGrass.API")
+        url = uri("https://maven.pkg.github.com/Zekromaster/Terminal")
         credentials {
             username = project.findProperty("gpr.user") as String? ?: System.getenv("GH_USERNAME")
             password = project.findProperty("gpr.key") as String? ?: System.getenv("GH_TOKEN")
@@ -59,7 +59,7 @@ modImplementation("net.zekromaster.minecraft:terminal:0.2.0-SNAPSHOT")
 
 To get a specific version (i.e. 0.1.0)
 ```kotlin
-modImplementation(include("net.zekromaster.minecraft:terminal:0.1.0"))
+modImplementation("net.zekromaster.minecraft:terminal:0.1.0")
 ```
 
 ### Modrinth Maven
