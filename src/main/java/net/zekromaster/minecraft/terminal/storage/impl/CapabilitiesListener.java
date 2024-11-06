@@ -28,7 +28,7 @@ public class CapabilitiesListener {
                     return fullStorage;
                 }
                 return switch (direction) {
-                    case DOWN -> fullStorage.singleSlot(2).readOnly();
+                    case DOWN -> fullStorage.singleSlot(2).extractOnly();
                     case UP -> fullStorage.singleSlot(0);
                     default ->  fullStorage.singleSlot(1);
                 };

@@ -1,11 +1,16 @@
 package net.zekromaster.minecraft.terminal.network;
 
+import net.modificationstation.stationapi.api.util.API;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * Reifies the process of writing and reading an object from/to a Stream for network packet purposes
+ * @param <T> The object to serialise/deserialise
+ */
 public final class NetworkCodec<T> {
 
     private final NetworkDecoder<T> decoder;
@@ -34,6 +39,7 @@ public final class NetworkCodec<T> {
         return this.sizeEstimator.size(object);
     }
 
+    @API
     static <T> NetworkCodec<T> create(
         NetworkDecoder<T> decoder,
         NetworkEncoder<T> encoder,

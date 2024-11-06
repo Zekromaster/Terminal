@@ -1,17 +1,22 @@
 package net.zekromaster.minecraft.terminal.nbt;
 
 import net.minecraft.nbt.*;
+import net.modificationstation.stationapi.api.util.API;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Reifies the process of converting an Object to and from NBT data
+ * @param <T> The object to convert
+ */
 public final class NbtCodec<T> implements NbtDecoder<T, NbtElement>, NbtEncoder<T, NbtElement> {
-    public static final NbtCodec<Byte> BYTE = create(NbtByte.class, NbtByte::new, (NbtByte x) -> x.value);
-    public static final NbtCodec<Short> SHORT = create(NbtShort.class, NbtShort::new, x -> x.value);
-    public static final NbtCodec<Integer> INT = create(NbtInt.class, NbtInt::new, x -> x.value);
-    public static final NbtCodec<Long> LONG = create(NbtLong.class, NbtLong::new, x -> x.value);
-    public static final NbtCodec<Float> FLOAT = create(NbtFloat.class, NbtFloat::new, x -> x.value);
-    public static final NbtCodec<Double> DOUBLE = create(NbtDouble.class, NbtDouble::new, x -> x.value);
-    public static final NbtCodec<String> STRING = create(NbtString.class, NbtString::new, (NbtString x) -> x.value);
-    public static final NbtCodec<Boolean> BOOLEAN = create(NbtByte.class, x -> new NbtByte((byte) (x ? 1 : 0)), x -> x.value != 0);
+    @API public static final NbtCodec<Byte> BYTE = create(NbtByte.class, NbtByte::new, (NbtByte x) -> x.value);
+    @API public static final NbtCodec<Short> SHORT = create(NbtShort.class, NbtShort::new, x -> x.value);
+    @API public static final NbtCodec<Integer> INT = create(NbtInt.class, NbtInt::new, x -> x.value);
+    @API public static final NbtCodec<Long> LONG = create(NbtLong.class, NbtLong::new, x -> x.value);
+    @API public static final NbtCodec<Float> FLOAT = create(NbtFloat.class, NbtFloat::new, x -> x.value);
+    @API public static final NbtCodec<Double> DOUBLE = create(NbtDouble.class, NbtDouble::new, x -> x.value);
+    @API public static final NbtCodec<String> STRING = create(NbtString.class, NbtString::new, (NbtString x) -> x.value);
+    @API public static final NbtCodec<Boolean> BOOLEAN = create(NbtByte.class, x -> new NbtByte((byte) (x ? 1 : 0)), x -> x.value != 0);
 
     private final Class<? extends NbtElement> nbtElementType;
     private final NbtEncoder<T, NbtElement> toNbt;
