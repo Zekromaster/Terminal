@@ -69,8 +69,6 @@ repositories {
         url = uri("https://maven.glass-launcher.net/releases")
     }
 
-    maven(uri("https://jitpack.io"))
-
     maven {
         name = "Froge"
         url = uri("https://maven.minecraftforge.net/")
@@ -80,6 +78,8 @@ repositories {
         name = "Modrinth"
         url = uri("https://api.modrinth.com/maven")
     }
+
+    maven(uri("https://jitpack.io"))
 
     mavenCentral()
 }
@@ -117,9 +117,10 @@ dependencies {
         isTransitive = false
     }
 
-    modRuntimeOnly ("com.github.paulevsGitch:BHCreative:${bhcreative_version}") {
+    modRuntimeOnly ("maven.modrinth:bh-creative:${bhcreative_version}") {
         isTransitive = false
     }
+
 }
 
 tasks {
