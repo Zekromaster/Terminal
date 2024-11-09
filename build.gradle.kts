@@ -7,6 +7,14 @@ plugins {
     id("com.modrinth.minotaur") version "2.+"
 }
 
+fun getPropertyOrEnvVar(property: String, envVar: String): String =
+    getPropertyOrEnvVar(property, envVar) { it ?: "" }
+
+fun getToggle(property: String, envVar: String): Boolean = getPropertyOrEnvVar(property, envVar) { it.toBoolean()}
+
+fun <T> getPropertyOrEnvVar(property: String, envVar: String, op: (String?) -> T): T =
+    op(project.findProperty(property) as String? ?: System.getenv(envVar))
+
 val maven_group: String by project
 val minecraft_version: String by project
 val yarn_mappings: String by project
@@ -20,14 +28,18 @@ val next_version: String by project
 val artifact_id: String by project
 val api_version: String by project
 
-val use_github_packages = (project.findProperty("gpr.use") as String? ?: System.getenv("GITHUB_USE_PACKAGE_REGISTRY") ?: "false").toBoolean()
-val gh_username = project.findProperty("gpr.username") as String? ?: System.getenv("GITHUB_ACTOR")
-val gh_token = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+val publish_to_github_packages = getToggle("gpr.publish", "GPR_PUBLISH")
+val gh_username = getPropertyOrEnvVar("gpr.username", "GITHUB_ACTOR")
+val gh_token = getPropertyOrEnvVar("gpr.key", "GITHUB_TOKEN")
 val gh_repo = project.findProperty("gpr.repo") as String
 
-val use_modrinth = (project.findProperty("modrinth.use") as String? ?: System.getenv("MODRINTH_USE") ?: "false").toBoolean()
+val publish_to_modrinth  = getToggle("modrinth.publish", "MODRINTH_PUBLISH")
 val modrinth_id = project.findProperty("modrinth.id") as String
-val modrinth_token = project.findProperty("modrinth.token") as String? ?: System.getenv("MODRINTH_TOKEN")
+val modrinth_token = getPropertyOrEnvVar("modrinth.token", "MODRINTH_TOKEN")
+
+val publish_to_glass_maven  = getToggle("glass.publish", "GLASS_MAVEN_PUBLISH")
+val glass_username = getPropertyOrEnvVar("glass.username", "GLASS_MAVEN_USERNAME")
+val glass_password = getPropertyOrEnvVar("glass.password", "GLASS_MAVEN_PASSWORD")
 
 val releasing = project.hasProperty("releasing")
 
@@ -55,17 +67,6 @@ repositories {
     maven {
         name = "Glass Releases"
         url = uri("https://maven.glass-launcher.net/releases")
-    }
-
-    if (use_github_packages) {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Zekromaster/*") // Github Package
-            credentials {
-                username = gh_username
-                password = gh_token
-            }
-        }
     }
 
     maven(uri("https://jitpack.io"))
@@ -139,7 +140,6 @@ tasks.jar {
     }
 }
 
-if (use_github_packages) {
     publishing {
         publications {
             register("mavenJava", MavenPublication::class) {
@@ -148,19 +148,32 @@ if (use_github_packages) {
             }
         }
         repositories {
-            maven {
-                name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/${gh_repo}") // Github Package
-                credentials {
-                    username = gh_username
-                    password = gh_token
+            if (publish_to_github_packages) {
+                maven {
+                    name = "GitHubPackages"
+                    url = uri("https://maven.pkg.github.com/${gh_repo}") // Github Package
+                    credentials {
+                        username = gh_username
+                        password = gh_token
+                    }
                 }
             }
+            if (publish_to_glass_maven) {
+                maven {
+                    name = "GlassMaven"
+                    url = uri("https://maven.glass-launcher.net/releases")
+                    credentials {
+                        username = glass_username
+                        password = glass_password
+                    }
+                }
+            }
+
         }
     }
-}
 
-if (use_modrinth) {
+
+if (publish_to_modrinth) {
     modrinth {
         token.set(modrinth_token)
         projectId.set(modrinth_id)
@@ -182,7 +195,7 @@ if (use_modrinth) {
 
 task("upload") {
     dependsOn(tasks.publish)
-    if (use_modrinth && releasing) {
+    if (publish_to_modrinth && releasing) {
         dependsOn(tasks.modrinth)
     }
 }

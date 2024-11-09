@@ -17,37 +17,19 @@ construction.
 
 ## Importing in Your Dev Environment
 
-### GitHub Package Registry
-Assuming you have a GitHub account, you can authenticate with the GitHub Package Registry with your username and a [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
-
-Assuming the username and token are stored in the `gpr.user` and `gpr.key` properties, respectively, or in the `GH_USERNAME` and `GH_TOKEN` environment variables, you can add the following to your `build.gradle.kts` file:
+The preferred way to download this library is from Glass Maven
 
 ```kotlin
 repositories {
     maven {
-        url = uri("https://maven.pkg.github.com/Zekromaster/Terminal")
-        credentials {
-            username = project.findProperty("gpr.user") as String? ?: System.getenv("GH_USERNAME")
-            password = project.findProperty("gpr.key") as String? ?: System.getenv("GH_TOKEN")
-        }
+        name = "Glass Releases"
+        url = uri("https://maven.glass-launcher.net/releases")
     }
 }
 ```
 
-To get a development version (i.e. 0.2.0 snapshots):
 ```kotlin
-modImplementation("net.zekromaster.minecraft:terminal:0.2.0-SNAPSHOT")
+dependencies {
+    modImplementation("net.zekromaster.minecraft:terminal:0.2.0")
+}
 ```
-
-To get a specific version (i.e. 0.1.0)
-```kotlin
-modImplementation("net.zekromaster.minecraft:terminal:0.1.0")
-```
-
-### Modrinth Maven
-
-Coming SOON™
-
-### Glass Maven
-
-Coming SOON™
