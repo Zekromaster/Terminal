@@ -13,13 +13,13 @@ public class CapabilitiesListener {
 
     @EventListener
     public void registerBlockCapabilities(CapabilityEvents.RegisterBlockEntityCapabilitiesEvent event) {
-        event.registerBlockEntity(
+        event.register(
             ItemStorage.BLOCK,
             (be, direction) -> ItemStorage.of((ChestBlockEntity) be),
             "Chest"
         );
 
-        event.registerBlockEntity(
+        event.register(
             ItemStorage.BLOCK,
             (be, direction) -> {
                 var fullStorage = new FurnaceItemStorage((FurnaceBlockEntity) be);
@@ -36,13 +36,13 @@ public class CapabilitiesListener {
             "Furnace"
         );
 
-        event.registerBlockEntity(
+        event.register(
             ItemStorage.BLOCK,
             (be, direction) -> new JukeboxItemStorage((JukeboxBlockEntity) be),
             "RecordPlayer"
         );
 
-        event.registerBlockEntity(
+        event.register(
             ItemStorage.BLOCK,
             (be, direction) -> new InventoryItemStorage<>((DispenserBlockEntity) be),
             "Trap"

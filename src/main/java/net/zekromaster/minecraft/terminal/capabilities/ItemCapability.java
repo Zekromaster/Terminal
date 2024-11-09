@@ -6,7 +6,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.modificationstation.stationapi.api.util.API;
 import net.modificationstation.stationapi.api.util.Identifier;
-import net.modificationstation.stationapi.api.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -48,7 +47,7 @@ public final class ItemCapability<T, CTX> {
 
     /**
      * Same as {@link ItemCapability#create(Identifier, Class, Class)}, but the context object is always a
-     * {@link Direction}
+     * {@link Void}
      */
     @API
     public static <T> ItemCapability<T, Void> createVoid(Identifier identifier, Class<T> clazz) {
