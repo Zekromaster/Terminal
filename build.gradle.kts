@@ -63,7 +63,13 @@ repositories {
         name = "Babric"
         url = uri("https://maven.glass-launcher.net/babric")
     }
-    // Used for mappings.
+
+    // Workaround for issue in babric-loom-extension
+    maven {
+        name = "Legacy Fabric"
+        url = uri("https://repo.legacyfabric.net/legacyfabric")
+    }
+
     maven {
         name = "Glass Releases"
         url = uri("https://maven.glass-launcher.net/releases")
@@ -162,7 +168,7 @@ tasks.jar {
             if (publish_to_glass_maven) {
                 maven {
                     name = "GlassMaven"
-                    url = uri("https://maven.glass-launcher.net/releases")
+                    url = uri("https://maven.glass-launcher.net/${if (releasing) "releases" else "snapshots"}")
                     credentials {
                         username = glass_username
                         password = glass_password
