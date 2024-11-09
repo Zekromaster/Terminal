@@ -142,8 +142,8 @@ tasks {
 tasks.withType<JavaCompile>().configureEach { options.release = 17 }
 
 tasks.jar {
-    from("LICENSE") {
-        rename { "LICENSE_${archives_base_name}"}
+    from("COPYING") {
+        rename { "COPYING_${archives_base_name}"}
     }
 }
 
