@@ -40,7 +40,7 @@ public final class NetworkCodec<T> {
     }
 
     @API
-    static <T> NetworkCodec<T> create(
+    public static <T> NetworkCodec<T> create(
         NetworkDecoder<T> decoder,
         NetworkEncoder<T> encoder,
         NetworkSizeEstimator<T> sizeEstimator
