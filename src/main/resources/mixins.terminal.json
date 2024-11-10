@@ -6,16 +6,11 @@
   "mixins": [
     "attachments.BlockEntityMixin",
     "attachments.EntityMixin",
-    "attachments.ItemStackMixin",
     "capabilities.BlockEntityAccessor",
     "storage.FurnaceBlockEntityAccessor"
   ],
-  "server": [
-    "attachments.ServerNetworkHandlerMixin"
-  ],
-  "client": [
-    "attachments.ClientNetworkHandlerMixin"
-  ],
+  "server": [],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   }

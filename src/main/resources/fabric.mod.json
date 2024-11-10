@@ -33,16 +33,8 @@
     "modmenu:api": true,
     "loom:injected_interfaces": {
       "net/minecraft/class_31": ["net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsInjectedStore"],
-      "net/minecraft/class_55": [
-        "net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsInjectedStore",
-        "net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsSetDataSilently"
-      ],
-      "net/minecraft/class_57": [
-        "net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsInjectedStore",
-        "net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsSetDataSilently"
-      ],
-      "net/minecraft/class_219": ["net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsNetworkHandler"],
-      "net/minecraft/class_11": ["net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsNetworkHandler"]
+      "net/minecraft/class_55": ["net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsInjectedStore"],
+      "net/minecraft/class_57": ["net/zekromaster/minecraft/terminal/attachments/inject/AttachmentsInjectedStore"]
     }
   }
 }
