@@ -8,6 +8,8 @@ import net.modificationstation.stationapi.api.util.API;
 import net.modificationstation.stationapi.api.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+
 /**
  * Flexible access to an object of type {@code T} as long as it's attached to an {@link Entity}.
  *
@@ -17,6 +19,7 @@ import org.jetbrains.annotations.Nullable;
 public final class EntityCapability<T, CTX> {
 
     final Multimap<String, EntityCapabilityHandler<T, CTX>> handlers = ArrayListMultimap.create();
+    final ArrayList<EntityCapabilityHandler<T, CTX>> fallbacks = new ArrayList<>();
 
     public final Identifier identifier;
     public final Class<T> clazz;
@@ -62,6 +65,12 @@ public final class EntityCapability<T, CTX> {
     @API
     public @Nullable T get(Entity entity, CTX ctx) {
         for (var handler: this.handlers.get(EntityRegistry.getId(entity))) {
+            var value = handler.get(entity, ctx);
+            if (value != null) {
+                return value;
+            }
+        }
+        for (var handler: this.fallbacks) {
             var value = handler.get(entity, ctx);
             if (value != null) {
                 return value;

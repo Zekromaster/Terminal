@@ -13,6 +13,9 @@ import net.modificationstation.stationapi.api.util.math.Direction;
 import net.zekromaster.minecraft.terminal.mixin.capabilities.BlockEntityAccessor;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Flexible access to an object of type {@code T} as long as it's attached to a Block or {@link BlockEntity}.
  *
@@ -23,6 +26,9 @@ public final class BlockCapability<T, CTX> {
 
     final Multimap<String, BlockEntityCapabilityHandler<T, CTX>> blockEntityHandlers = ArrayListMultimap.create();
     final Multimap<Block, BlockCapabilityHandler<T, CTX>> blockHandlers = ArrayListMultimap.create();
+
+    final List<BlockEntityCapabilityHandler<T, CTX>> blockEntityFallbacks = new ArrayList<>();
+    final List<BlockCapabilityHandler<T, CTX>> blockFallbacks = new ArrayList<>();
 
     public final Identifier identifier;
     public final Class<T> clazz;
@@ -94,11 +100,24 @@ public final class BlockCapability<T, CTX> {
                         return value;
                     }
                 }
+                for (var handler: this.blockEntityFallbacks) {
+                    var value = handler.get(blockEntity, ctx);
+                    if (value != null) {
+                        return value;
+                    }
+                }
             }
         }
         var block = world.getBlockState(x, y, z);
+        var blockPos = new BlockPos(x, y, z);
         for (var handler: this.blockHandlers.get(block.getBlock())) {
-            var value = handler.get(world, new BlockPos(x, y, z), ctx);
+            var value = handler.get(world, blockPos, ctx);
+            if (value != null) {
+                return value;
+            }
+        }
+        for (var handler: this.blockFallbacks) {
+            var value = handler.get(world, blockPos, ctx);
             if (value != null) {
                 return value;
             }

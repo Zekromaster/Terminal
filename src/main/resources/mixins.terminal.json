@@ -7,7 +7,8 @@
     "attachments.BlockEntityMixin",
     "attachments.EntityMixin",
     "capabilities.BlockEntityAccessor",
-    "storage.FurnaceBlockEntityAccessor"
+    "storage.FurnaceBlockEntityAccessor",
+    "utils.ExplosionMixin"
   ],
   "server": [],
   "client": [],
